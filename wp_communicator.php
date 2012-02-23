@@ -8,29 +8,11 @@
 	Author URI: http://davidkeen.com
 */
 
-// Get the GPX data from a custom field
+include_once plugin_dir_path(__FILE__) . 'includes/shortcodes.php';
+include_once plugin_dir_path(__FILE__) . 'includes/WPCommunicator.php';
 
+$wpCommunicator = new WPCommunicator();
 
-function gpx_shortcode_handler($atts, $content = null, $code = "" ) {
+register_activation_hook( __FILE__, array($wpCommunicator, 'register_activation'));
 
-    // Extract the shortcode arguments into local variables (setting defaults as required)
-    extract(shortcode_atts(array('name' => uniqid()), $atts));
-
-    // Create a div to show the import button.
-    $ret = '<div id="garminDisplay">&#160;</div>';
-
-    // Write out a javascript variable for the filename
-    $ret .= "<script type='text/javascript'>var gpxFilename = $name </script>";
-
-    // Insert the contents of custom field into a hidden text area
-    $gpxData = get_post_meta($post->ID, 'gpx', true);
-    $ret .= "<textarea id='dataString' style='display:none'>$gpxData</textarea>";
-
-    return $ret;
-}
-
-
-
-add_shortcode('gpx', 'gpx_shortcode_handler');
-
-?>
+add_action('wp_head', array($wpCommunicator, 'wp_head'));
