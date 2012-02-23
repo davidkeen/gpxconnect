@@ -17,7 +17,7 @@ function wp_communicator_gpx_shortcode_handler($atts, $content = null, $code = "
     $ret = '<div id="garminDisplay">&#160;</div>';
 
     // Write out a javascript variable for the filename
-    $ret .= "<script type='text/javascript'>var gpxFilename = $name; load();</script>";
+    $ret .= "<script type='text/javascript'>var gpxFileName = '$name'; load();</script>";
 
     // Insert the contents of custom field into a hidden text area
     global $post;

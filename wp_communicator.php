@@ -15,4 +15,5 @@ $wpCommunicator = new WPCommunicator();
 
 register_activation_hook( __FILE__, array($wpCommunicator, 'register_activation'));
 
+add_action('wp_enqueue_scripts', array($wpCommunicator, 'include_javascript'));
 add_action('wp_head', array($wpCommunicator, 'wp_head'));
