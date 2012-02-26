@@ -1,0 +1,25 @@
+=== WPcommunicator ===
+Contributors:
+Tags: geo, gpx, navigation, maps
+Requires at least: 3.0
+Tested up to: 3.3
+Stable tag:
+
+Download GPX data to Garmin GPS devices.
+
+== Description ==
+
+This plugin uses the Garmin Communicator Plugin to allow downloading of GPX data to connected Garmin GPS devices.
+
+== Installation ==
+
+1.  Extract the zip file and drop the contents in the wp-content/plugins/ directory of your WordPress installation.
+2.  Activate the plugin from Plugins page.
+3.  Go to the plugin settings page and enter your Garmin site key.
+
+You can get a Garmin site key from the [Garmin Developer website](http://developer.garmin.com/web-device/garmin-communicator-plugin/get-your-site-key/)
+
+To add a download link to a post:
+
+1.  Create a custom field called \'gpx\' with GPX data.
+2.  Insert the gpx shortcode into your post. Use the \'name\' parameter to specify the filename that is created on the device. This should be unique.
