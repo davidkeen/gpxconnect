@@ -46,7 +46,7 @@ class WPcommunicator
 
     function include_javascript() {
 
-        wp_register_script('garmin-device-display', 'http://developer.garmin.com/web/communicator-api/garmin/device/GarminDeviceDisplay.js', array('prototype'), '1.9');
+        wp_register_script('garmin-device-display', plugins_url('js/communicator-api-1.9/garmin/device/GarminDeviceDisplay.js' , dirname(__FILE__)), array('prototype'), '1.9');
 
         wp_enqueue_script('prototype');
         wp_enqueue_script('garmin-device-display');
