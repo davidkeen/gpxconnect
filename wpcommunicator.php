@@ -42,4 +42,5 @@ add_action('admin_menu', array($wpCommunicator, 'admin_menu'));
 add_action('admin_init', array($wpCommunicator, 'admin_init'));
 
 // Filters
-add_filter('plugin_action_links', array($wpCommunicator, 'add_settings_link'), 10, 2 );
+$plugin = plugin_basename(__FILE__);
+add_filter("plugin_action_links_{$plugin}", array($wpCommunicator, 'add_settings_link'));

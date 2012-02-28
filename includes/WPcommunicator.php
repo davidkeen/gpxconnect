@@ -41,7 +41,7 @@ class WPcommunicator
 
     function include_javascript() {
 
-        wp_register_script('garmin-device-display', plugins_url('js/communicator-api-1.9/garmin/device/GarminDeviceDisplay.js' , dirname(__FILE__)), array('prototype'), '1.9');
+        wp_register_script('garmin-device-display', plugins_url('js/garmin/device/GarminDeviceDisplay.js' , dirname(__FILE__)), array('prototype'), '1.9');
 
         wp_enqueue_script('prototype');
         wp_enqueue_script('garmin-device-display');
@@ -79,14 +79,9 @@ class WPcommunicator
             </script>';
     }
 
-    function add_settings_link($links, $file) {
-        static $this_plugin;
-        if (!$this_plugin) $this_plugin = plugin_basename(__FILE__);
-
-        if ($file == $this_plugin){
-            $settings_link = '<a href="admin.php?page=wp-communicator">' . __("Settings", "WPcommunicator") . '</a>';
-            array_unshift($links, $settings_link);
-        }
+    function add_settings_link($links) {
+        $settings_link = '<a href="options-general.php?page=wp-communicator">' . __("Settings", "WPcommunicator") . '</a>';
+        array_unshift($links, $settings_link);
         return $links;
     }
 
