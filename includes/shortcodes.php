@@ -21,6 +21,10 @@
 /**
  * The [gpx] shortcode handler.
  *
+ * This shortcode inserts a button to download the GPX data stored in the post's gpx custom field.
+ * The 'name' parameter should be used to give a unique filename (without .gpx extension) to store the data in on the device.
+ * Eg: [gpx name="my_file"]
+ *
  * @param string $atts shortcode attributes.
  * @param string $content content between shortcode tags.
  * @param string $code
