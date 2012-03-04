@@ -207,6 +207,8 @@ class WPcommunicator
         $newCommunicatorKey = trim($input['communicator_key']);
         if (strlen($newCommunicatorKey) > 32) {
             $options['communicator_key'] = substr($newCommunicatorKey, 0, 32);
+        } else {
+            $options['communicator_key'] = $newCommunicatorKey;
         }
 
         // Validate button_text
