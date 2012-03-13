@@ -39,14 +39,9 @@ class WPcommunicator
         update_option('wp_communicator_options', $options);
     }
 
-    function on_uninstall() {
-        delete_option('wp_communicator_options');
-    }
-
-
     function include_javascript() {
 
-        wp_register_script('garmin-device-display', plugins_url('js/communicator-api-1.9/garmin/device/GarminDeviceDisplay.js' , dirname(__FILE__)), array('prototype'), '1.9');
+        wp_register_script('garmin-device-display', plugins_url('js/garmin/device/GarminDeviceDisplay.js' , dirname(__FILE__)), array('prototype'), '1.9');
 
         wp_enqueue_script('prototype');
         wp_enqueue_script('garmin-device-display');
@@ -84,9 +79,15 @@ class WPcommunicator
             </script>';
     }
 
+    function add_settings_link($links) {
+        $settings_link = '<a href="options-general.php?page=wp-communicator">' . __("Settings", "WPcommunicator") . '</a>';
+        array_unshift($links, $settings_link);
+        return $links;
+    }
+
     function admin_menu() {
         global $wpCommunicator;
-        add_options_page('WPcommunicator Options', 'WPcommunicator', 'manage_options', __FILE__, array($wpCommunicator, 'options_page'));
+        add_options_page('WPcommunicator Options', 'WPcommunicator', 'manage_options', 'wp-communicator', array($wpCommunicator, 'options_page'));
     }
 
     /**
@@ -206,6 +207,8 @@ class WPcommunicator
         $newCommunicatorKey = trim($input['communicator_key']);
         if (strlen($newCommunicatorKey) > 32) {
             $options['communicator_key'] = substr($newCommunicatorKey, 0, 32);
+        } else {
+            $options['communicator_key'] = $newCommunicatorKey;
         }
 
         // Validate button_text

@@ -34,10 +34,13 @@ $wpCommunicator = new WPcommunicator();
 
 // Hooks
 register_activation_hook(__FILE__, array($wpCommunicator, 'on_activate'));
-register_uninstall_hook(__FILE__, array($wpCommunicator, 'on_uninstall'));
 
 // Actions
 add_action('wp_enqueue_scripts', array($wpCommunicator, 'include_javascript'));
 add_action('wp_head', array($wpCommunicator, 'wp_head'));
 add_action('admin_menu', array($wpCommunicator, 'admin_menu'));
 add_action('admin_init', array($wpCommunicator, 'admin_init'));
+
+// Filters
+$plugin = plugin_basename(__FILE__);
+add_filter("plugin_action_links_{$plugin}", array($wpCommunicator, 'add_settings_link'));
