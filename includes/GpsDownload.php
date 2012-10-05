@@ -159,7 +159,7 @@ class GpsDownload
         // $title - Title of the section.
         // $callback - Function that fills the section with the desired content. The function should echo its output.
         // $page - The type of settings page on which to show the section (general, reading, writing, media etc.)
-        add_settings_section('general', 'General Settings', array($this, 'general_section_content'), 'gps_download');
+        add_settings_section('general', 'General Settings', array($this, 'general_section_content'), 'gps-download');
 
 
         // Register the options
@@ -172,10 +172,10 @@ class GpsDownload
         // $section - The section of the settings page in which to show the box (default or a section you added with add_settings_section,
         //            look at the page in the source to see what the existing ones are.)
         // $args - Additional arguments
-        add_settings_field('communicator_path', 'Site URL', array($this, 'communicator_path_input'), 'gps_download', 'general');
-        add_settings_field('communicator_key', 'Key', array($this, 'communicator_key_input'), 'gps_download', 'general');
-        add_settings_field('button_text', 'Button text', array($this, 'button_text_input'), 'gps_download', 'general');
-        add_settings_field('after_write_text', 'After write text', array($this, 'after_write_text_input'), 'gps_download', 'general');
+        add_settings_field('communicator_path', 'Site URL', array($this, 'communicator_path_input'), 'gps-download', 'general');
+        add_settings_field('communicator_key', 'Key', array($this, 'communicator_key_input'), 'gps-download', 'general');
+        add_settings_field('button_text', 'Button text', array($this, 'button_text_input'), 'gps-download', 'general');
+        add_settings_field('after_write_text', 'After write text', array($this, 'after_write_text_input'), 'gps-download', 'general');
     }
 
     /**
@@ -185,7 +185,7 @@ class GpsDownload
      * @return array
      */
     function add_settings_link($links) {
-        $settings_link = '<a href="options-general.php?page=gps_download">' . __("Settings", "GPS Download") . '</a>';
+        $settings_link = '<a href="options-general.php?page=gps-download">' . __("Settings", "GPS Download") . '</a>';
         array_unshift($links, $settings_link);
         return $links;
     }
@@ -194,7 +194,7 @@ class GpsDownload
      * admin_menu action callback.
      */
     function admin_menu() {
-        add_options_page('GPS Download Options', 'GPS Download', 'manage_options', 'gps_download', array($this, 'options_page'));
+        add_options_page('GPS Download Options', 'GPS Download', 'manage_options', 'gps-download', array($this, 'options_page'));
     }
 
     /**
@@ -219,7 +219,7 @@ class GpsDownload
         settings_fields('gps_download_option_group');
 
         // Print out all settings sections.
-        do_settings_sections('gps_download');
+        do_settings_sections('gps-download');
 
         // Finish the settings form.
         echo '

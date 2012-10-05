@@ -20,7 +20,7 @@
 
 /*
  * Plugin Name: GPS Download
- * Plugin URI: https://github.com/davidkeen/WPcommunicator
+ * Plugin URI: https://github.com/davidkeen/gps-download
  * Description: Garmin Communicator WordPress plugin.
  * Version: 1.0
  * Author: David Keen
