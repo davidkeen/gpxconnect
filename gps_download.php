@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2012 David Keen <david@sharedmemory.net>
+ * Copyright 2012 David Keen <david@davidkeen.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,28 +19,32 @@
  */
 
 /*
- * Plugin Name: WPcommunicator
+ * Plugin Name: GPS Download
  * Plugin URI: https://github.com/davidkeen/WPcommunicator
  * Description: Garmin Communicator WordPress plugin.
- * Version: 0.1
+ * Version: 1.0
  * Author: David Keen
  * Author URI: http://davidkeen.com
 */
 
-include_once plugin_dir_path(__FILE__) . 'includes/shortcodes.php';
-include_once plugin_dir_path(__FILE__) . 'includes/WPcommunicator.php';
+// Constants
+define('GPS_DOWNLOAD_PLUGIN_DIR', plugin_dir_path(__FILE__));
+define('GPS_DOWNLOAD_PLUGIN_BASENAME', plugin_basename(__FILE__));
 
-$wpCommunicator = new WPcommunicator();
+// Includes
+include_once GPS_DOWNLOAD_PLUGIN_DIR . 'includes/GpsDownload.php';
 
-// Hooks
-register_activation_hook(__FILE__, array($wpCommunicator, 'on_activate'));
+// The main plugin class
+$gps = new GpsDownload();
 
 // Actions
-add_action('wp_enqueue_scripts', array($wpCommunicator, 'include_javascript'));
-add_action('wp_head', array($wpCommunicator, 'wp_head'));
-add_action('admin_menu', array($wpCommunicator, 'admin_menu'));
-add_action('admin_init', array($wpCommunicator, 'admin_init'));
+add_action('wp_enqueue_scripts', array($gps, 'wp_enqueue_scripts'));
+add_action('wp_head', array($gps, 'wp_head'));
+add_action('admin_menu', array($gps, 'admin_menu'));
+add_action('admin_init', array($gps, 'admin_init'));
 
 // Filters
-$plugin = plugin_basename(__FILE__);
-add_filter("plugin_action_links_{$plugin}", array($wpCommunicator, 'add_settings_link'));
+add_filter('plugin_action_links_' . GPS_DOWNLOAD_PLUGIN_BASENAME, array($gps, 'add_settings_link'));
+
+// Shortcodes
+add_shortcode('gps_download', array($gps, 'gps_download_shortcode'));

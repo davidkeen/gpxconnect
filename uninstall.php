@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2012 David Keen <david@sharedmemory.net>
+ * Copyright 2012 David Keen <david@davidkeen.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,4 +21,4 @@
 if (!defined('WP_UNINSTALL_PLUGIN')) {
     exit();
 }
-delete_option('wp_communicator_options');
+delete_option('gps_download_options');
