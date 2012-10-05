@@ -108,7 +108,7 @@ class GpsDownload
     }
 
     /**
-     * The [gps_download] shortcode handler.
+     * The [gps-download] shortcode handler.
      *
      * This shortcode inserts a button to download the GPX data stored in the post's gpx custom field.
      * The 'name' parameter should be used to give a unique filename (without .gpx extension) to store the data in on the device.

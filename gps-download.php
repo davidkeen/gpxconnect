@@ -47,4 +47,4 @@ add_action('admin_init', array($gps, 'admin_init'));
 add_filter('plugin_action_links_' . GPS_DOWNLOAD_PLUGIN_BASENAME, array($gps, 'add_settings_link'));
 
 // Shortcodes
-add_shortcode('gps_download', array($gps, 'gps_download_shortcode'));
+add_shortcode('gps-download', array($gps, 'gps_download_shortcode'));
