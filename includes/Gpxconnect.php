@@ -18,8 +18,10 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-class GpsDownload
+class Gpxconnect
 {
+    const OPTIONS_KEY = 'gpxconnect_options';
+
     // Default values for all plugin options.
     // To add a new option just add it to this array.
     private $defaultOptions = array(
@@ -32,14 +34,14 @@ class GpsDownload
     public function __construct() {
 
         // Set up the options array
-        $this->options = get_option('gps_download_options');
+        $this->options = get_option(self::OPTIONS_KEY);
         if (!is_array($this->options)) {
 
             // We don't have any options set yet.
             $this->options = $this->defaultOptions;
 
             // Save them to the DB.
-            update_option('gps_download_options', $this->options);
+            update_option(self::OPTIONS_KEY, $this->options);
         } else if (count(array_diff_key($this->defaultOptions, $this->options)) > 0) {
 
             // The option was set but we don't have all the option values.
@@ -50,7 +52,7 @@ class GpsDownload
             }
 
             // Save them to the DB.
-            update_option('gps_download_options', $this->options);
+            update_option(self::OPTIONS_KEY, $this->options);
         }
     }
 
@@ -108,17 +110,17 @@ class GpsDownload
     }
 
     /**
-     * The [gps-download] shortcode handler.
+     * The [gpxconnect] shortcode handler.
      *
      * This shortcode inserts a button to download the GPX data stored in the post's gpx custom field.
      * The 'name' parameter should be used to give a unique filename (without .gpx extension) to store the data in on the device.
      * The 'src' parameter should be used to give the url containing the GPX data.
-     * Eg: [gps_download src=http://www.example.com/my_file.gpx name=my_file]
+     * Eg: [gpxconnect src=http://www.example.com/my_file.gpx name=my_file]
      *
      * @param string $atts an associative array of attributes.
      * @return string the shortcode output to be inserted into the post body in place of the shortcode itself.
      */
-    function gps_download_shortcode($atts) {
+    function gpxconnect_shortcode($atts) {
 
         // Extract the shortcode arguments into local variables named for the attribute keys (setting defaults as required)
         $defaults = array('name' => uniqid());
@@ -151,7 +153,7 @@ class GpsDownload
         // $option_group - A settings group name. Must exist prior to the register_setting call. This must match the group name in settings_fields().
         // $option_name - The name of an option to sanitize and save.
         // $sanitize_callback - A callback function that sanitizes the option's value.
-        register_setting('gps_download_option_group', 'gps_download_options', array($this, 'validate_options'));
+        register_setting('gpxconnect_option_group', self::OPTIONS_KEY, array($this, 'validate_options'));
 
         // Add the 'General Settings' section to the options page.
         // Parameters are:
@@ -159,7 +161,7 @@ class GpsDownload
         // $title - Title of the section.
         // $callback - Function that fills the section with the desired content. The function should echo its output.
         // $page - The type of settings page on which to show the section (general, reading, writing, media etc.)
-        add_settings_section('general', 'General Settings', array($this, 'general_section_content'), 'gps-download');
+        add_settings_section('general', 'General Settings', array($this, 'general_section_content'), 'gpxconnect');
 
 
         // Register the options
@@ -172,10 +174,10 @@ class GpsDownload
         // $section - The section of the settings page in which to show the box (default or a section you added with add_settings_section,
         //            look at the page in the source to see what the existing ones are.)
         // $args - Additional arguments
-        add_settings_field('communicator_path', 'Site URL', array($this, 'communicator_path_input'), 'gps-download', 'general');
-        add_settings_field('communicator_key', 'Key', array($this, 'communicator_key_input'), 'gps-download', 'general');
-        add_settings_field('button_text', 'Button text', array($this, 'button_text_input'), 'gps-download', 'general');
-        add_settings_field('after_write_text', 'After write text', array($this, 'after_write_text_input'), 'gps-download', 'general');
+        add_settings_field('communicator_path', 'Site URL', array($this, 'communicator_path_input'), 'gpxconnect', 'general');
+        add_settings_field('communicator_key', 'Key', array($this, 'communicator_key_input'), 'gpxconnect', 'general');
+        add_settings_field('button_text', 'Button text', array($this, 'button_text_input'), 'gpxconnect', 'general');
+        add_settings_field('after_write_text', 'After write text', array($this, 'after_write_text_input'), 'gpxconnect', 'general');
     }
 
     /**
@@ -185,7 +187,7 @@ class GpsDownload
      * @return array
      */
     function add_settings_link($links) {
-        $settings_link = '<a href="options-general.php?page=gps-download">' . __("Settings", "GPS Download") . '</a>';
+        $settings_link = '<a href="options-general.php?page=gpxconnect">' . __("Settings", "GPXconnect") . '</a>';
         array_unshift($links, $settings_link);
         return $links;
     }
@@ -194,7 +196,7 @@ class GpsDownload
      * admin_menu action callback.
      */
     function admin_menu() {
-        add_options_page('GPS Download Options', 'GPS Download', 'manage_options', 'gps-download', array($this, 'options_page'));
+        add_options_page('GPXconnect Options', 'GPXconnect', 'manage_options', 'gpxconnect', array($this, 'options_page'));
     }
 
     /**
@@ -216,10 +218,10 @@ class GpsDownload
             <form method="post" action="options.php">';
 
         // Display the hidden fields and handle security.
-        settings_fields('gps_download_option_group');
+        settings_fields('gpxconnect_option_group');
 
         // Print out all settings sections.
-        do_settings_sections('gps-download');
+        do_settings_sections('gpxconnect');
 
         // Finish the settings form.
         echo '
@@ -242,19 +244,19 @@ class GpsDownload
      * Name value must start with the same as the id used in register_setting.
      */
     function communicator_path_input() {
-    	echo "<input id='communicator_path' name='gps_download_options[communicator_path]' size='40' type='text' value='{$this->options['communicator_path']}' />";
+    	echo "<input id='communicator_path' name='self::OPTIONS_KEY[communicator_path]' size='40' type='text' value='{$this->options['communicator_path']}' />";
     }
 
     function communicator_key_input() {
-        echo "<input id='communicator_key' name='gps_download_options[communicator_key]' size='40' type='text' value='{$this->options['communicator_key']}' />";
+        echo "<input id='communicator_key' name='self::OPTIONS_KEY[communicator_key]' size='40' type='text' value='{$this->options['communicator_key']}' />";
     }
 
     function button_text_input() {
-        echo "<input id='button_text' name='gps_download_options[button_text]' size='40' type='text' value='{$this->options['button_text']}' />";
+        echo "<input id='button_text' name='self::OPTIONS_KEY[button_text]' size='40' type='text' value='{$this->options['button_text']}' />";
     }
 
     function after_write_text_input() {
-        echo "<input id='after_write_text' name='gps_download_options[after_write_text]' size='40' type='text' value='{$this->options['after_write_text']}' />";
+        echo "<input id='after_write_text' name='self::OPTIONS_KEY[after_write_text]' size='40' type='text' value='{$this->options['after_write_text']}' />";
     }
 
     function validate_options($input) {
