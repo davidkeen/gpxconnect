@@ -20,8 +20,6 @@
 
 class Gpxconnect
 {
-    const OPTIONS_KEY = 'gpxconnect_options';
-
     // Default values for all plugin options.
     // To add a new option just add it to this array.
     private $defaultOptions = array(
@@ -34,14 +32,14 @@ class Gpxconnect
     public function __construct() {
 
         // Set up the options array
-        $this->options = get_option(self::OPTIONS_KEY);
+        $this->options = get_option(gpxconnect_options);
         if (!is_array($this->options)) {
 
             // We don't have any options set yet.
             $this->options = $this->defaultOptions;
 
             // Save them to the DB.
-            update_option(self::OPTIONS_KEY, $this->options);
+            update_option(gpxconnect_options, $this->options);
         } else if (count(array_diff_key($this->defaultOptions, $this->options)) > 0) {
 
             // The option was set but we don't have all the option values.
@@ -52,7 +50,7 @@ class Gpxconnect
             }
 
             // Save them to the DB.
-            update_option(self::OPTIONS_KEY, $this->options);
+            update_option(gpxconnect_options, $this->options);
         }
     }
 
@@ -123,7 +121,9 @@ class Gpxconnect
     function gpxconnect_shortcode($atts) {
 
         // Extract the shortcode arguments into local variables named for the attribute keys (setting defaults as required)
-        $defaults = array('name' => uniqid());
+        $defaults = array(
+            'name' => uniqid(),
+            'src' => '');
         extract(shortcode_atts($defaults, $atts));
 
         // Create a div to show the import button.
@@ -153,7 +153,7 @@ class Gpxconnect
         // $option_group - A settings group name. Must exist prior to the register_setting call. This must match the group name in settings_fields().
         // $option_name - The name of an option to sanitize and save.
         // $sanitize_callback - A callback function that sanitizes the option's value.
-        register_setting('gpxconnect_option_group', self::OPTIONS_KEY, array($this, 'validate_options'));
+        register_setting('gpxconnect_option_group', gpxconnect_options, array($this, 'validate_options'));
 
         // Add the 'General Settings' section to the options page.
         // Parameters are:
@@ -214,7 +214,7 @@ class Gpxconnect
         // Start the settings form.
         echo '
             <div class="wrap">
-            <h2>GPS Download Settings</h2>
+            <h2>GPXconnect Settings</h2>
             <form method="post" action="options.php">';
 
         // Display the hidden fields and handle security.
@@ -244,19 +244,19 @@ class Gpxconnect
      * Name value must start with the same as the id used in register_setting.
      */
     function communicator_path_input() {
-    	echo "<input id='communicator_path' name='self::OPTIONS_KEY[communicator_path]' size='40' type='text' value='{$this->options['communicator_path']}' />";
+    	echo "<input id='communicator_path' name='gpxconnect_options[communicator_path]' size='40' type='text' value='{$this->options['communicator_path']}' />";
     }
 
     function communicator_key_input() {
-        echo "<input id='communicator_key' name='self::OPTIONS_KEY[communicator_key]' size='40' type='text' value='{$this->options['communicator_key']}' />";
+        echo "<input id='communicator_key' name='gpxconnect_options[communicator_key]' size='40' type='text' value='{$this->options['communicator_key']}' />";
     }
 
     function button_text_input() {
-        echo "<input id='button_text' name='self::OPTIONS_KEY[button_text]' size='40' type='text' value='{$this->options['button_text']}' />";
+        echo "<input id='button_text' name='gpxconnect_options[button_text]' size='40' type='text' value='{$this->options['button_text']}' />";
     }
 
     function after_write_text_input() {
-        echo "<input id='after_write_text' name='self::OPTIONS_KEY[after_write_text]' size='40' type='text' value='{$this->options['after_write_text']}' />";
+        echo "<input id='after_write_text' name='gpxconnect_options[after_write_text]' size='40' type='text' value='{$this->options['after_write_text']}' />";
     }
 
     function validate_options($input) {
