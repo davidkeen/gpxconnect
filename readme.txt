@@ -28,6 +28,10 @@ You can get a Garmin site key from the [Garmin Developer website](http://develop
 1.  Create a custom field called 'gpx' with GPX data.
 1.  Insert the [gpxconnect] shortcode into your post. Use the 'name' parameter to specify the filename that is created on the device. This should be unique. Eg, [gpx name=my_route]
 
+= How can I report a bug/feature request? =
+
+Create an issue in the [GitHub issue tracker](https://github.com/davidkeen/gpxconnect/issues).
+
 == Changelog ==
 
 = 1.0 =
