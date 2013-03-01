@@ -32,14 +32,14 @@ class Gpxconnect
     public function __construct() {
 
         // Set up the options array
-        $this->options = get_option(gpxconnect_options);
+        $this->options = get_option('gpxconnect_options');
         if (!is_array($this->options)) {
 
             // We don't have any options set yet.
             $this->options = $this->defaultOptions;
 
             // Save them to the DB.
-            update_option(gpxconnect_options, $this->options);
+            update_option('gpxconnect_options', $this->options);
         } else if (count(array_diff_key($this->defaultOptions, $this->options)) > 0) {
 
             // The option was set but we don't have all the option values.
@@ -50,7 +50,7 @@ class Gpxconnect
             }
 
             // Save them to the DB.
-            update_option(gpxconnect_options, $this->options);
+            update_option('gpxconnect_options', $this->options);
         }
     }
 
@@ -153,7 +153,7 @@ class Gpxconnect
         // $option_group - A settings group name. Must exist prior to the register_setting call. This must match the group name in settings_fields().
         // $option_name - The name of an option to sanitize and save.
         // $sanitize_callback - A callback function that sanitizes the option's value.
-        register_setting('gpxconnect_option_group', gpxconnect_options, array($this, 'validate_options'));
+        register_setting('gpxconnect_option_group', 'gpxconnect_options', array($this, 'validate_options'));
 
         // Add the 'General Settings' section to the options page.
         // Parameters are:
