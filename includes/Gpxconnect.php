@@ -25,6 +25,7 @@ class Gpxconnect
     private $defaultOptions = array(
         'communicator_path' => 'http://example.com',
         'communicator_key' => '',
+        'show_about_element' => false,
         'button_text' => 'Download to GPS',
         'after_write_text' => 'Transfer complete');
     private $options;
@@ -88,6 +89,7 @@ class Gpxconnect
                     pathKeyPairsArray: ["' . $this->options['communicator_path'] . '", "' . $this->options['communicator_key'] . '"],
                     unlockOnPageLoad: false,
                     hideIfBrowserNotSupported: true,
+                    showAboutElement: "' . $this->options['show_about_element'] . '",
                     showStatusElement: false,
                     autoFindDevices: false,
                     findDevicesButtonText: "' . $this->options['button_text'] . '",
