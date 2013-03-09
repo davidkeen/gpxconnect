@@ -4,8 +4,8 @@ Tags: geo, gpx, gps, navigation, maps, garmin
 Requires at least: 3.0
 Tested up to: 3.5.1
 Stable tag: 1.0
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv3
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Download GPX data to Garmin GPS devices.
 
