@@ -26,7 +26,7 @@ You can get a Garmin site key from the [Garmin Developer website](http://develop
 = How do I add a download link to a post? =
 
 1.  Create a custom field called 'gpx' with GPX data.
-1.  Insert the [gpxconnect] shortcode into your post. Use the 'name' parameter to specify the filename that is created on the device. This should be unique. Eg, [gpx name=my_route]
+1.  Insert the [gpxconnect] shortcode into your post. Use the 'name' parameter to specify the filename that is created on the device. This should be unique. Eg, [gpxconnect name=my_route]
 
 = How can I report a bug/feature request? =
 
