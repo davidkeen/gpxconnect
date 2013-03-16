@@ -21,7 +21,7 @@
  * Plugin Name: GPXconnect
  * Plugin URI: https://github.com/davidkeen/gpxconnect
  * Description: Garmin Communicator WordPress plugin.
- * Version: 1.0
+ * Version: 1.1
  * Author: David Keen
  * Author URI: http://davidkeen.com
 */
